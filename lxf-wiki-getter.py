@@ -6,6 +6,7 @@ from __future__ import print_function
 import shutil
 from lxml import html
 import requests
+from make_epub import make_epub
 
 BASE_URL = 'http://www.liaoxuefeng.com'
 
@@ -20,8 +21,9 @@ def main():
     ul = h.cssselect('.x-sidebar-left-content ul[style]')[0]
 
     chapter = {}
+    menu = []
 
-    f = open('./wiki/index.md', 'wb')
+    #f = open('./wiki/index.md', 'wb')
     for li in ul:
         depth = 0
         try:
@@ -41,9 +43,14 @@ def main():
         save_html(url, title, chapter_text)
 
         print('%s %s %s' % (chapter_text, title.decode('utf-8'), url))
-        f.write('%s. [%s](%s.html)\n' % (chapter_text, title, chapter_text))
+        #f.write('%s. [%s](%s.html)\n' % (chapter_text, title, chapter_text))
+        menu.append((depth, title, chapter_text))
 
-    f.close()
+    #f.close()
+
+    #import cPickle as pickle
+    #pickle.dump(menu, open('./menu.dat', 'wb'))
+    make_epub(menu)
 
 def mkdir_p(path):
     import os
