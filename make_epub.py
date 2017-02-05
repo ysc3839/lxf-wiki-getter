@@ -106,7 +106,7 @@ def gen_metadata(menu):
             f.writelines('<item href="%s.html" id="h-%s" media-type="application/xhtml+xml"/>' % (item[2], _id))
 
         for imgname in os.listdir('./wiki/images/'):
-            f.writelines('<item href="images/%s" id="img-%s" media-type="%s"/>' % (imgname, imgname.split('.', 2)[0], mimetypes.guess_type(imgname)))
+            f.writelines('<item href="images/%s" id="img-%s" media-type="%s"/>' % (imgname, imgname.split('.', 2)[0], mimetypes.guess_type(imgname)[0]))
 
         f.write('</manifest>\n<spine toc="ncx">\n')
 
